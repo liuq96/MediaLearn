@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.VideoActivity">
+    tools:context=".HomeActivity">
 
-    <VideoView
-        android:id="@+id/id_video_view"
+    <Button
+        android:text="@string/jump_to_cameraactivity"
+        android:onClick="jumpToCameraActivity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

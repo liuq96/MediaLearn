@@ -1,4 +1,4 @@
-package com.example.liuqiang.medialearn;
+package com.example.liuqiang.medialearn.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -11,8 +11,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.Objects;
+import com.example.liuqiang.medialearn.R;
+import com.example.liuqiang.medialearn.media.AudioCapture;
+import com.example.liuqiang.medialearn.media.AudioPlayer;
 
 public class MainActivity extends AppCompatActivity {
     private final int permissionRequestCode = 1;

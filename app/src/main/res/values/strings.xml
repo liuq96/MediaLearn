@@ -8,4 +8,8 @@
     <string name="record">Record</string>
     <string name="stop">Stop</string>
     <string name="start">start</string>
+    <string name="capture">Capture</string>
+    <string name="title_activity_home_activty">HomeActivty</string>
+    <string name="jump_to_homeactivity">Jump To HomeActivity</string>
+    <string name="jump_to_cameraactivity">Jump To CameraActivity</string>
 </resources>

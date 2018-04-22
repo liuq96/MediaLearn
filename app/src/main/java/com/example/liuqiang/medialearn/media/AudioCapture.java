@@ -1,4 +1,4 @@
-package com.example.liuqiang.medialearn;
+package com.example.liuqiang.medialearn.media;
 
 import android.app.Application;
 import android.media.AudioFormat;
