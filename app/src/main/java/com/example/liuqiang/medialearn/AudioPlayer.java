@@ -59,6 +59,8 @@ public class AudioPlayer {
             Log.e(TAG, "player not started!");
             return false;
         }
+        Log.d(TAG, "start play audio");
+        Log.d(TAG, "path: " + path);
         isPlaying = true;
         new Thread(new AudioPlayerTask(path)).start();
         return true;
@@ -67,6 +69,7 @@ public class AudioPlayer {
 
     public void stop(){
         if (mAudioTrack != null){
+            Log.d(TAG, "stop play audio");
             mAudioTrack.stop();
             mAudioTrack.release();
             mAudioTrack = null;
@@ -94,23 +97,41 @@ public class AudioPlayer {
                 Log.e(TAG, "error: " + e.getMessage());
                 return;
             }
-            long bytesRead = 0;
             long size = file.length();
             Log.d(TAG, "file length: " + size);
             byte[] data = new byte[mMinBufferSize];
-            while (isPlaying && bytesRead < size){
+
+            while (isPlaying){
                 int ret = 0;
                 try {
-                    ret = fis.read(data, 0, mMinBufferSize);
+                    ret = fis.read(data, 0, data.length);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e(TAG, "error: " + e.getMessage());
-                    return;
                 }
-                if (ret != -1){
-                    mAudioTrack.write(data, 0, ret);
+                if (ret >= 0){
+                    Log.d(TAG, "ret: " + ret);
+                    mAudioTrack.write(data, 0, data.length);
+                } else {
+                    break;
                 }
             }
+            stop();
+
+//            while (isPlaying && bytesRead < size){
+//                int ret = 0;
+//                try {
+//                    ret = fis.read(data, bytesRead, mMinBufferSize);
+//                    Log.d(TAG, "ret: " + ret);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    Log.e(TAG, "error: " + e.getMessage());
+//                    return;
+//                }
+//                if (ret != -1){
+//                    bytesRead += ret;
+//                    mAudioTrack.write(data, 0, ret);
+//                }
+//            }
 
             try {
                 fis.close();

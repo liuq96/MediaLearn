@@ -1,5 +1,6 @@
 package com.example.liuqiang.medialearn;
 
+import android.app.Application;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 public class AudioCapture {
     private static final String TAG = "AudioCapture";
@@ -17,19 +19,17 @@ public class AudioCapture {
     private static final int DEFAULT_RECORDER_SAMPLERATE = 44100;
     private static final int DEFAULT_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
     private static final int DEFAULT_AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
-    private static final String DEFAULT_SAVE_PATH = Environment.getDataDirectory().getPath()
-            + File.pathSeparator + "audio.pcm";
 
     private AudioRecord audioRecord;
     private volatile boolean isRecording = false;
     private int minBufferSize;
 
-    private boolean startRecord(){
+    public boolean startRecord(String audioPath){
         return startRecord(DEFAULT_SOURCE, DEFAULT_RECORDER_SAMPLERATE, DEFAULT_CHANNELS,
-                DEFAULT_AUDIO_FORMAT, DEFAULT_SAVE_PATH);
+                DEFAULT_AUDIO_FORMAT, audioPath);
     }
 
-    private boolean startRecord(int audioSource, int sampleRateInHz, int channelConfig,
+    public boolean startRecord(int audioSource, int sampleRateInHz, int channelConfig,
                          int audioFormat, String path){
         if (isRecording){
             Log.e(TAG, "AudioCapture is recording now");
@@ -48,22 +48,22 @@ public class AudioCapture {
             Log.e(TAG, "AudioRecord initialize fail!");
             return false;
         }
-
+        Log.d(TAG, "start record");
         audioRecord.startRecording();
         isRecording = true;
         new Thread(new AudioRecordTask(path)).start();
         return true;
     }
 
-    private void stopRecord(){
+    public void stopRecord(){
         if (audioRecord != null){
+            Log.d(TAG, "stop record");
             isRecording = false;
             audioRecord.stop();
             audioRecord.release();
             audioRecord = null;
         }
     }
-
 
     private class AudioRecordTask implements Runnable {
         private String path;
@@ -82,17 +82,18 @@ public class AudioCapture {
                 Log.e(TAG, "error: " + e.getMessage());
                 return;
             }
-
+            ByteBuffer buffer = ByteBuffer.allocateDirect(minBufferSize);
             while (isRecording){
-                byte[] buffer = new byte[minBufferSize];
-                int ret = audioRecord.read(buffer, 0, minBufferSize);
+                int ret = audioRecord.read(buffer, minBufferSize);
+                Log.d(TAG, "ret: " + ret);
                 if (ret == AudioRecord.ERROR_INVALID_OPERATION){
                     Log.e(TAG, "Error ERROR_INVALID_OPERATION");
                 } else if (ret == AudioRecord.ERROR_BAD_VALUE){
                     Log.e(TAG, "Error ERROR_BAD_VALUE");
                 } else {
                     try {
-                        fos.write(buffer, 0, minBufferSize);
+                        fos.write(buffer.array(), 0, minBufferSize);
+                        buffer.clear();
                     } catch (IOException e) {
                         e.printStackTrace();
                         Log.e(TAG, "error: " + e.getMessage());
