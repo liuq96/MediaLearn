@@ -12,4 +12,14 @@
     <string name="title_activity_home_activty">HomeActivty</string>
     <string name="jump_to_homeactivity">Jump To HomeActivity</string>
     <string name="jump_to_cameraactivity">Jump To CameraActivity</string>
+    <string name="system_camera">使用系统相机</string>
+    <string name="use_custom_camera">使用自定义相机</string>
+    <string name="jump_to_pictureactivity">Jump To PictureActivity</string>
+    <string name="take_photo">拍照</string>
+    <string name="confirm">确定</string>
+    <string name="reset">重拍</string>
+    <string name="request_permission">申请相机权限</string>
+    <string name="camera_error">相机发生错误</string>
+    <string name="info">详情</string>
+    <string name="camera2">使用Camera2拍照</string>
 </resources>

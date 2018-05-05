@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.liuqiang.medialearn.activity.CameraActivity;
+import com.example.liuqiang.medialearn.activity.PictureActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -18,6 +19,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public void jumpToCameraActivity(View view){
         startActivity(new Intent(this, CameraActivity.class));
+    }
+
+    public void jumpToPictureActivity(View view){
+        startActivity(new Intent(this, PictureActivity.class));
     }
 
 

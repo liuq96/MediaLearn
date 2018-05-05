@@ -105,10 +105,8 @@ public class CameraActivity extends AppCompatActivity implements TextureView.Sur
         Camera.Parameters parameters = mCamera.getParameters();
         List<Camera.Size> mSupportedPreviewSizes = parameters.getSupportedPreviewSizes();
         List<Camera.Size> mSupportedVideoSizes = parameters.getSupportedVideoSizes();
-        int width = Math.max(mPreview.getWidth(), mPreview.getHeight());
-        int height = Math.min(mPreview.getWidth(), mPreview.getHeight());
         Camera.Size optimalSize = CameraHelper.getOptimalVideoSize(mSupportedVideoSizes, mSupportedPreviewSizes,
-                width, height);
+                mPreview.getWidth(), mPreview.getHeight());
 
         CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
         profile.videoFrameWidth = optimalSize.width;

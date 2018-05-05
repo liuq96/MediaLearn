@@ -73,6 +73,23 @@ public class CameraHelper {
         return optimalSize;
     }
 
+    public static Camera.Size getOptimalImageSize(List<Camera.Size> supportedPreviewSizes, int width, int height){
+        int w,h;
+        w = Math.max(width, height);
+        h = Math.min(width, height);
+
+        double minDiff = Double.MAX_VALUE;
+        Camera.Size optimalSize = null;
+        for (Camera.Size size : supportedPreviewSizes){
+            double radio = (double) w / h;
+            if (radio < minDiff){
+                minDiff = radio;
+                optimalSize = size;
+            }
+        }
+        return optimalSize;
+    }
+
     public static Camera getDefaultCameraInstance() {
         return Camera.open();
     }
