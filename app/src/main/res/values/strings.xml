@@ -22,4 +22,5 @@
     <string name="camera_error">相机发生错误</string>
     <string name="info">详情</string>
     <string name="camera2">使用Camera2拍照</string>
+    <string name="use_simple_opengl">使用OpenGL ES</string>
 </resources>

@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.liuqiang.medialearn.activity.CameraActivity;
 import com.example.liuqiang.medialearn.activity.PictureActivity;
+import com.example.liuqiang.medialearn.opengl.OpenGLES20Activity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -25,6 +26,9 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(new Intent(this, PictureActivity.class));
     }
 
+    public void jumpToOpenGLES20Activity(View view){
+        startActivity(new Intent(this, OpenGLES20Activity.class));
+    }
 
 
 }

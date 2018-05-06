@@ -19,4 +19,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:text="@string/use_simple_opengl"
+        android:onClick="jumpToOpenGLES20Activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
